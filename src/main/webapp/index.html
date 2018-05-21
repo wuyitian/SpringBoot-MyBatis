@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- saved from url=(0055)https://elementui.github.io/theme-chalk-preview/#/zh-CN -->
-<html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>theme-chalk-preview</title>
@@ -83,6 +83,7 @@
                                 class="el-button el-button--primary el-button--medium"><!---->
                             <!----><span>搜索</span></button><!----></div>
                 </div>
+
             </form>
 
             <div class="el-table table el-table--fit el-table--striped el-table--border el-table--enable-row-hover el-table--enable-row-transition el-table--medium">
@@ -97,7 +98,7 @@
                     <table cellspacing="0" cellpadding="0" border="0" class="el-table__header"
                            style="width: 1195px;">
                         <colgroup>
-                            <col name="el-table_1_column_1" width="100">
+                            <col name="el-table_1_column_1" width="60">
                             <col name="el-table_1_column_2" width="200">
                             <col name="el-table_1_column_3" width="200">
                             <col name="el-table_1_column_4" width="300">
@@ -134,14 +135,15 @@
                     <table cellspacing="0" cellpadding="0" border="0" class="el-table__body"
                            style="width: 1195px;">
                         <colgroup>
-                            <col name="el-table_1_column_1" width="100">
+                            <col name="el-table_1_column_1" width="60">
                             <col name="el-table_1_column_2" width="200">
                             <col name="el-table_1_column_3" width="200">
                             <col name="el-table_1_column_4" width="300">
                             <col name="el-table_1_column_5" width="160">
                         </colgroup>
-                        <tbody>
-                        <tr class="el-table__row" v-for="tableInfo in tableInfos">
+                        <tbody v-for="(tableInfo,key) in tableInfos">
+                        <!--实现斑马纹交替-->
+                        <tr :class="{'el-table__row': key%2==0 ,'el-table__row el-table__row--striped' : key%2==1 }" >
                             <td class="el-table_1_column_1  ">
                                 <div class="cell">{{tableInfo.id}}</div>
                             </td>
@@ -158,43 +160,17 @@
                                 <div class="cell">
                                     <button type="button"
                                             class="el-button el-button--default el-button--mini">
-                                        <!----><!----><span>编辑</span></button>
-                                    <button type="button"
-                                            class="el-button el-button--danger el-button--mini">
-                                        <!----><!----><span>删除</span></button>
-                                </div>
-                            </td>
-                        </tr>
-						
-
-                        <!-- 此处是有斑马纹的表
-                        <tr class="el-table__row el-table__row--striped">
-                            <td class="el-table_1_column_1  ">
-                                <div class="cell">2016-05-10</div>
-                            </td>
-                            <td class="el-table_1_column_2  ">
-                                <div class="cell">王小虎</div>
-                            </td>
-                            <td class="el-table_1_column_3  ">
-                                <div class="cell">上海市普陀区金沙江路 1518 弄</div>
-                            </td>
-                            <td class="el-table_1_column_4  ">
-                                <div class="cell">200333</div>
-                            </td>
-                            <td class="el-table_1_column_5  ">
-                                <div class="cell">
-                                    <button type="button"
-                                            class="el-button el-button--default el-button--mini">
                                         <span>编辑</span></button>
                                     <button type="button"
-                                            class="el-button el-button--danger el-button--mini">
+                                            class="el-button el-button--danger el-button--mini"
+                                            v-on:click="removeTableInfo">
                                         <span>删除</span></button>
                                 </div>
                             </td>
                         </tr>
-                        -->
 
-						</tbody>
+
+                        </tbody>
                     </table><!----><!----></div><!----><!----><!----><!---->
                 <div class="el-table__column-resize-proxy" style="display: none;"></div>
                 <div class="resize-triggers">
@@ -245,8 +221,17 @@
                 .then(json => {
                     this.tableInfos = json
                 })
+        },
+        methods :{
+            removeTableInfo : function (event) {
+                alert(event)
+                window.location.href="test/form1.html"
+               // window.open("test/form1.html" ,'thiswindow');
+            }
         }
     })
+
+
 </script>
 </body>
 </html>
